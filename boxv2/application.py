@@ -24,11 +24,11 @@ def get_application(settings: Optional[BaseAppSettings] = None) -> FastAPI:
         [plugin_class.dependencies for plugin_class in plugin_classes]
     )
 
-    bot = Bot(
+    bot = Bot(  # type: ignore
         bot_accounts=settings.BOT_CREDENTIALS,
         dependencies=dependencies,
     )
-    application.state = bot.state
+    application.state = bot.state  # type: ignore
     application.state.settings = settings
     application.state.bot_name = settings.NAME
     application.state.bot = bot

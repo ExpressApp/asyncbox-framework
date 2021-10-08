@@ -62,9 +62,9 @@ def render_extra_template(template: str, extra_content: dict[str, str]) -> None:
         cookiecutter(
             str(template), extra_context=extra_content, no_input=True, output_dir=temp_dir
         )
-    except CookiecutterException:
+    except CookiecutterException as exc:
         _print(f"Cannot render template `{template}`.")
-        raise SystemExit
+        _traceback(exc)
     shutil.copytree(temp_dir, ".", ignore=_copy_inspect, dirs_exist_ok=True)
     shutil.rmtree(temp_dir)
 
@@ -72,6 +72,13 @@ def render_extra_template(template: str, extra_content: dict[str, str]) -> None:
 def _print(*args, **kwargs) -> None:
     if globals()["VERBOSE"]:
         print(*args, **kwargs)
+
+
+def _traceback(exc: Exception) -> None:
+    if globals()["VERBOSE"]:
+        raise exc
+    print("An error occurred. Add -v switch to verbose output.")
+    raise SystemExit
 
 
 def _copy_inspect(path: str, names: list[str]) -> set[str]:
