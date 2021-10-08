@@ -4,26 +4,15 @@
 
 1. Установка
    
-    а) Из пакета.
-   
-    Скачать пакет отсюда: https://gitlab.ccsteam.ru/rnd/box-v2/-/packages
-   
-    Установить скачанный пакет
-    ```bash
-    pip install --user boxv2-0.2.1-py3-none-any.whl
-    ```
-   
-    б) Из исходников.
-   
     Склонировать репозиторий с исходниками
     ```bash
-    git clone https://gitlab.ccsteam.ru/rnd/box-v2.git
+    git clone https://github.com/ExpressApp/boxv2.git
     ```
     Собрать пакет и установить его
     ```bash
-    cd box-v2
+    cd boxv2
     poetry build
-    pip install --user dist/boxv2-0.2.1-py3-none-any.whl
+    pip install --user dist/boxv2-0.4.0-py3-none-any.whl
     ```
 
 2. Создание проекта из шаблона
@@ -42,7 +31,7 @@
     последней версии. Если такое поведение нежелательно, то необходимо указать
     в файле pyproject.toml конкретную версию 
     ```
-    boxv2 = { git = "https://gitlab.ccsteam.ru/rnd/box-v2.git", tag = "0.2.1"}
+    boxv2 = { git = "https://github.com/ExpressApp/boxv2.git", tag = "0.4.0"}
     ```    
 
 4. Обновление
