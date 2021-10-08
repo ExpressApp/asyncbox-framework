@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+set -x
+
+
+mypy boxv2
+flake8 boxv2
+
+black --check boxv2 --diff
+isort --recursive --check-only boxv2
+
