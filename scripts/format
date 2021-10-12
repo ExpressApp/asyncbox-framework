@@ -3,6 +3,6 @@
 set -e
 
 isort --recursive  --force-single-line-imports boxv2 tests
-autoflake --recursive --remove-all-unused-imports --remove-unused-variables --in-place boxv2 tests
-black boxv2 tests
+autoflake --recursive --remove-all-unused-imports --remove-unused-variables --in-place --exclude boxv2/template/** boxv2 tests
+black --exclude boxv2/template boxv2 tests
 isort --recursive boxv2 tests

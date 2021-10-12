@@ -8,9 +8,9 @@ from fastapi import FastAPI
 
 from boxv2.endpoints import get_router
 from boxv2.error_handlers import server_unknown
+from boxv2.plugin import get_plugin_by_path
 from boxv2.settings import BaseAppSettings
 from boxv2.utils.import_utils import import_object
-from boxv2.plugin import get_plugin_by_path
 
 
 def get_application(settings: Optional[BaseAppSettings] = None) -> FastAPI:
@@ -88,5 +88,3 @@ def get_collectors(settings: BaseAppSettings) -> list[Collector]:
 
 def _flatten_list(list_: List[List[Any]]) -> list[Any]:
     return [element for sublist in list_ for element in sublist]
-
-

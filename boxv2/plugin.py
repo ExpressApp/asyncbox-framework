@@ -1,14 +1,14 @@
 """Base class for bot plugins."""
 
-from typing import Any, List, Type
-from pathlib import Path
 import inspect
+from pathlib import Path
+from typing import Any, Type
+
 from botx import Bot
 from botx.dependencies.models import Depends
 from fastapi import FastAPI
 from pydantic import BaseSettings
 
-from boxv2.settings import BaseAppSettings
 from boxv2.utils.import_utils import import_object
 
 
@@ -29,9 +29,7 @@ class BasePlugin:
     # Path to template dir is relative to the dir where plugin class defined
     template = Path("template")
 
-    def __init__(
-        self, settings: BaseSettings, application: FastAPI, bot: Bot
-    ) -> None:
+    def __init__(self, settings: BaseSettings, application: FastAPI, bot: Bot) -> None:
         """Plugin initialization."""
         self.settings = settings
         self.application = application

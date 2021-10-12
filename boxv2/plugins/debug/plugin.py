@@ -2,8 +2,8 @@
 
 from typing import Any
 
-from boxv2.plugins.debug.commands import collector
 from boxv2.plugin import BasePlugin
+from boxv2.plugins.debug.commands import collector
 
 
 class Plugin(BasePlugin):

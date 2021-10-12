@@ -4,8 +4,8 @@ from typing import Any
 
 from botx import DependencyFailure, Depends, Message
 
-from boxv2.utils.import_utils import import_object
 from boxv2.plugin import BasePlugin, BasePluginSettings
+from boxv2.utils.import_utils import import_object
 
 
 class CheckExtCts:

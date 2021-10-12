@@ -5,8 +5,8 @@ from typing import Any, Dict, List, Optional
 from pydantic import PostgresDsn
 from tortoise import Tortoise
 
-from boxv2.plugins.tortoise.dependencies import auto_models_update
 from boxv2.plugin import BasePlugin, BasePluginSettings
+from boxv2.plugins.tortoise.dependencies import auto_models_update
 
 
 class Settings(BasePluginSettings):
