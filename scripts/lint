@@ -7,6 +7,6 @@ set -x
 mypy boxv2
 flake8 boxv2
 
-black --check boxv2 --diff
+black --exclude boxv2/template --check boxv2 --diff
 isort --recursive --check-only boxv2
 
