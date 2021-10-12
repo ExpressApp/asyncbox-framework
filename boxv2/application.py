@@ -3,11 +3,10 @@
 import os
 from typing import Any, Callable, List, Optional
 
-from botx import Bot, Collector, UnknownBotError
+from botx import Bot, Collector
 from fastapi import FastAPI
 
 from boxv2.endpoints import get_router
-from boxv2.error_handlers import server_unknown
 from boxv2.plugin import get_plugin_by_path
 from boxv2.settings import BaseAppSettings
 from boxv2.utils.import_utils import import_object
@@ -45,10 +44,6 @@ def get_application(settings: Optional[BaseAppSettings] = None) -> FastAPI:
     collectors = get_collectors(settings)
     for collector in collectors:
         bot.include_collector(collector)
-
-    application.add_exception_handler(
-        UnknownBotError, server_unknown.message_from_unknown_server_handler
-    )
 
     router = get_router(bot)
     application.include_router(router)

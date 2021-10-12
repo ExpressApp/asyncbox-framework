@@ -59,10 +59,9 @@
    
     | Путь                             | Описание
     -----------------------------------|:-----------------------------------
-    | boxv2.plugins.logger             | расширенне логирование (Loguru)
+    | boxv2.plugins.logger             | расширенное логирование (Loguru)
     | boxv2.plugins.tortoise           | БД (PostgreSQL)
     | boxv2.plugins.redis              | Redis
-    | boxv2.plugins.forbid_ext_cts     | запрет внешних CTS
     | boxv2.plugins.sentry             | мониторинг ошибок (Sentry)
     | boxv2.plugins.prometheus         | сбор метрик (Prometheus)
 
