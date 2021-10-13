@@ -2,12 +2,12 @@
 
 import inspect
 from pathlib import Path
-from typing import Any, Type
+from typing import Any, Optional, Type
 
 from botx import Bot
 from botx.dependencies.models import Depends
 from fastapi import FastAPI
-from pydantic import BaseSettings
+from pydantic import BaseModel, BaseSettings
 
 from boxv2.utils.import_utils import import_object
 
@@ -18,6 +18,14 @@ class BasePluginSettings(BaseSettings):
     class Config:  # noqa: WPS431
         env_file = ".env"
         json_loads = lambda x: x  # noqa: E731,WPS111
+
+
+class HealtCheckData(BaseModel):
+    """Data returning by plugin's healthcheck method."""
+
+    healthcheck_supported: bool = True
+    healthy: Optional[bool]  # True - ok, False - error
+    information: dict[str, Any] = {}
 
 
 class BasePlugin:
@@ -42,10 +50,23 @@ class BasePlugin:
     async def on_shutdown(self, *args: Any, **kwargs: Any) -> None:
         """Shutdown hook."""
 
+    async def healthcheck(self) -> HealtCheckData:
+        """Runtime check for plugin functioning."""
+        return HealtCheckData(healthcheck_supported=False)
+
     @classmethod
     def get_template_path(cls) -> Path:
         """Absolute path to plugin's template directory."""
-        return Path(inspect.getfile(cls)).resolve().parents[0] / cls.template
+        plugin_path = Path(inspect.getfile(cls)).resolve().parents[0]
+        return plugin_path / cls.template
+
+    @classmethod
+    def get_name(cls) -> str:
+        """Get plugin's name."""
+        module = inspect.getmodule(cls)
+        if module is not None:
+            return module.__name__.split(".")[-2]
+        return cls.__name__.lower()
 
     def _merge_settings(self) -> None:  # noqa: WPS231
         app_values = {}
@@ -61,7 +82,7 @@ class BasePlugin:
             app_values[key] = getattr(self.settings, key)
 
         plugin_settings = self.settings_class(**app_values)
-        for field_name in plugin_settings.__fields__:
+        for field_name in plugin_settings.__fields__:  # noqa: WPS609
             self.settings.__dict__[field_name] = getattr(plugin_settings, field_name)
 
 

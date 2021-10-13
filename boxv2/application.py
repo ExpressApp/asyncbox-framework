@@ -38,6 +38,7 @@ def get_application(settings: Optional[BaseAppSettings] = None) -> FastAPI:
     application.add_event_handler("shutdown", bot_shutdown(bot))
 
     for plugin in plugin_instances:
+        setattr(application.state, plugin.get_name(), plugin)
         application.add_event_handler("startup", plugin.on_startup)
         application.add_event_handler("shutdown", plugin.on_shutdown)
 

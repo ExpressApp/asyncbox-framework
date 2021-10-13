@@ -19,13 +19,14 @@ alembic = "^1.5.4"
 psycopg2-binary = "^2.8.6"  # for alembic
 loguru = "^0.5.3"
 prometheus-client = "^0.9.0"
+SQLAlchemy = "^1.4.25"
 
 [tool.poetry.dev-dependencies]
 black = "~20.8b1"
 isort = "~4.3.21"
 autoflake = "~1.4"
-mypy = "~0.800"
-wemake-python-styleguide = "~0.14"
+mypy = "~0.910"
+wemake-python-styleguide = "~0.15.3"
 pytest = "~5.4.1"
 pytest-cov = "~2.8.1"
 pytest-asyncio = "~0.12.0"
