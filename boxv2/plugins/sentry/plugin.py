@@ -16,7 +16,7 @@ class Settings(BasePluginSettings):
     SENTRY_DSN: AnyHttpUrl
 
 
-class Plugin(BasePlugin):
+class SentryPlugin(BasePlugin):
     """Sentry plugins."""
 
     settings_class = Settings

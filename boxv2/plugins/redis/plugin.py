@@ -14,7 +14,7 @@ class Settings(BasePluginSettings):
     REDIS_EXPIRE: Optional[int]
 
 
-class Plugin(BasePlugin):
+class RedisPlugin(BasePlugin):
     """Redis plugin."""
 
     redis_repo: RedisRepo

@@ -6,7 +6,7 @@ from boxv2.plugin import BasePlugin
 from boxv2.plugins.debug.commands import collector
 
 
-class Plugin(BasePlugin):
+class DebugPlugin(BasePlugin):
     """Debug plugin."""
 
     async def on_startup(self, *args: Any, **kwargs: Any) -> None:
