@@ -7,7 +7,7 @@ from boxv2.plugins.prometheus.endpoint import router
 from boxv2.plugins.prometheus.middleware import PrometheusMiddleware
 
 
-class Plugin(BasePlugin):
+class PrometheusPlugin(BasePlugin):
     """Prometheus plugin."""
 
     async def on_startup(self, *args: Any, **kwargs: Any) -> None:

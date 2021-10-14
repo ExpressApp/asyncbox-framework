@@ -1,3 +1,3 @@
-from .plugin import Plugin
+from .plugin import RedisPlugin as Plugin
 
 __all__ = ["Plugin"]

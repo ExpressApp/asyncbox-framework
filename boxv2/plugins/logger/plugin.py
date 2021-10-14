@@ -17,7 +17,7 @@ class Settings(BasePluginSettings):
     SQL_DEBUG: bool = False
 
 
-class Plugin(BasePlugin):
+class LoguruPlugin(BasePlugin):
     """Loguru logger plugin."""
 
     settings_class = Settings
