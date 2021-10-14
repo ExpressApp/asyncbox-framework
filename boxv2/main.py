@@ -17,11 +17,13 @@ from boxv2.plugin import get_plugin_by_path
 @click.option("--verbose", "-v", count=True)
 @click.option("--plugin", "-p", multiple=True, default=["debug", "logger"])
 @click.option("--template", "-t", required=False)
-@click.argument("bot_name", nargs=1, type=click.Path(file_okay=False, dir_okay=False))
+@click.argument("bot_name", nargs=1, type=click.Path())
 def main(
     plugin: list[str], template: Optional[str], bot_name: str, verbose: int
 ) -> None:
     """Create a bot project."""
+    if Path(bot_name).exists():
+        raise click.UsageError(f"Directory `{bot_name}` already exists.")
     logger.remove()
     logger.add(sys.stderr, level=_get_logger_level(verbose))
 
