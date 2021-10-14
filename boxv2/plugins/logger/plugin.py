@@ -3,12 +3,14 @@ import json
 import logging
 import sys
 from pprint import pformat
-from typing import Any
-
+from typing import TYPE_CHECKING, List, Any
 from loguru import logger
 from loguru._defaults import LOGURU_FORMAT  # noqa: WPS436
-
 from boxv2.plugin import BasePlugin, BasePluginSettings
+from copy import deepcopy
+
+if TYPE_CHECKING:
+    from loguru import Record  # noqa: WPS433  # pragma: no cover
 
 
 class Settings(BasePluginSettings):
@@ -55,7 +57,8 @@ class Plugin(BasePlugin):
                     "format": self.format_record,
                     "level": logging.DEBUG if self.settings.DEBUG else logging.INFO,
                 }
-            ]
+            ],
+            patcher=copy_extra,
         )
 
     def format_record(self, record: dict) -> str:
@@ -129,3 +132,7 @@ class InterceptHandler(logging.Handler):
         logger.opt(depth=depth, exception=record.exc_info).log(
             level, record.getMessage()
         )
+
+
+def copy_extra(record: "Record") -> None:
+    record["extra"] = deepcopy(record["extra"])
