@@ -64,6 +64,10 @@ class BasePlugin:
         """Get plugin's name."""
         module = inspect.getmodule(cls)
         if module is not None:
+            #
+            # boxv2.plugins.sqlalchemy.plugin.SQLAlchemyPlugin
+            #               ^
+            #               this part is using as name
             return module.__name__.split(".")[-2]
         return cls.__name__.lower()
 

@@ -10,14 +10,14 @@ from boxv2.plugins.sqlalchemy.url_scheme_utils import make_url_async
 
 
 class Settings(BasePluginSettings):
-    """Settings for Tortoise ORM plugin."""
+    """Settings for SQLAlchemy ORM plugin."""
 
     POSTGRES_DSN: str
     SQL_DEBUG: bool = False
 
 
 class SQLAlchemyPlugin(BasePlugin):
-    """Tortoise ORM plugin."""
+    """SQLAlchemy ORM plugin."""
 
     settings_class = Settings
     _session: Optional[AsyncSession]
