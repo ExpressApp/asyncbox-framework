@@ -23,8 +23,7 @@ class BasePluginSettings(BaseSettings):
 class HealtCheckData(BaseModel):
     """Data returning by plugin's healthcheck method."""
 
-    healthcheck_supported: bool = True
-    healthy: Optional[bool]  # True - ok, False - error
+    healthy: Optional[bool] = None  # True - ok, False - error, None - not supported
     information: dict[str, Any] = {}
 
 
@@ -52,7 +51,7 @@ class BasePlugin:
 
     async def healthcheck(self) -> HealtCheckData:
         """Runtime check for plugin functioning."""
-        return HealtCheckData(healthcheck_supported=False)
+        return HealtCheckData()
 
     @classmethod
     def get_template_path(cls) -> Path:
