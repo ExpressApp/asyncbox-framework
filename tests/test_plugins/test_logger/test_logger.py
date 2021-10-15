@@ -1,7 +1,7 @@
 import pytest
 from loguru._defaults import LOGURU_FORMAT
 
-from boxv2.plugins.logger.plugin import Plugin
+from boxv2.plugins.logger.plugin import LoguruPlugin as Plugin
 from boxv2.settings import BaseAppSettings
 
 

@@ -2,7 +2,7 @@ from os import environ
 
 import pytest
 
-from boxv2.plugins.redis.plugin import Plugin, Settings
+from boxv2.plugins.redis.plugin import RedisPlugin as Plugin, Settings
 
 REDIS_DSN = environ["TEST_REDIS_DSN"]
 

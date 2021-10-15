@@ -5,7 +5,7 @@ from typing import Any, Callable, List, Optional
 
 from botx import Bot, Collector
 from fastapi import FastAPI
-
+import itertools
 from boxv2.endpoints import get_router
 from boxv2.plugin import get_plugin_by_path
 from boxv2.settings import BaseAppSettings
@@ -19,9 +19,9 @@ def get_application(settings: Optional[BaseAppSettings] = None) -> FastAPI:
 
     application = FastAPI(title=settings.NAME)
     plugin_classes = [get_plugin_by_path(plugin) for plugin in settings.PLUGINS]
-    dependencies = _flatten_list(
+    dependencies = list(itertools.chain.from_iterable(
         [plugin_class.dependencies for plugin_class in plugin_classes]
-    )
+    ))
 
     bot = Bot(  # type: ignore
         bot_accounts=settings.BOT_CREDENTIALS,
@@ -79,7 +79,3 @@ def get_app_settings() -> BaseAppSettings:
 def get_collectors(settings: BaseAppSettings) -> list[Collector]:
     """Return list of registered Collectors."""
     return [import_object(collector_path) for collector_path in settings.COLLECTORS]
-
-
-def _flatten_list(list_: List[List[Any]]) -> list[Any]:
-    return [element for sublist in list_ for element in sublist]
