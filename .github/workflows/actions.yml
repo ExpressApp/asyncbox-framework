@@ -41,7 +41,7 @@ jobs:
           ./scripts/test --cov-report=xml
         env:
           REDIS_DSN: redis://localhost/0
-          POSTGRES_DSN: postgresql:postgres:postgres//localhost/postgres
+          POSTGRES_DSN: postgresql://postgres:postgres@localhost/postgres
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
@@ -57,6 +57,9 @@ jobs:
     steps:
       - name: Setup
         uses: ExpressApp/github-actions-poetry@v0.1
+        with:
+          python-version: "3.9.6"
+          poetry-version: "1.1.6"
 
       - name: Run lint
         run: |
