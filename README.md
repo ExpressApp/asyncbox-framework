@@ -6,19 +6,19 @@
    
     Склонировать репозиторий с исходниками
     ```bash
-    git clone https://github.com/ExpressApp/boxv2.git
+    git clone https://github.com/ExpressApp/asyncbox-framework.git
     ```
     Собрать пакет и установить его
     ```bash
-    cd boxv2
+    cd asyncbox-framework
     poetry build
-    pip install --user dist/boxv2-0.4.0-py3-none-any.whl
+    pip install --user dist/asyncbox-0.4.0-py3-none-any.whl
     ```
 
 2. Создание проекта из шаблона
    
     ```bash
-    boxv2 -v -t http://path/to/template -p plugin1 -p plugin2 bot_project_name
+    asyncbox -v -t http://path/to/template -p plugin1 -p plugin2 bot_project_name
     cd bot_project_name
     ```
    
@@ -27,11 +27,11 @@
     ```bash
     poetry install
     ```
-    Важно: библиотека boxv2 в созданном проекте будет установлена той версии, которя
+    Важно: библиотека asyncbox в созданном проекте будет установлена той версии, которя
     указана в шаблоне файла pyproject.toml. При необходимости вы можете указать нужную
     версию или ветку репозитория следующим образом: 
     ```
-    boxv2 = { git = "https://github.com/ExpressApp/boxv2.git", branch = "master"}
+    asyncbox = { git = "https://github.com/ExpressApp/asyncbox.git", branch = "master"}
     ```    
 
 4. Обновление
@@ -59,11 +59,11 @@
    
     | Путь                             | Описание
     -----------------------------------|:-----------------------------------
-    | boxv2.plugins.logger             | расширенное логирование (Loguru)
-    | boxv2.plugins.tortoise           | БД (PostgreSQL)
-    | boxv2.plugins.redis              | Redis
-    | boxv2.plugins.sentry             | мониторинг ошибок (Sentry)
-    | boxv2.plugins.prometheus         | сбор метрик (Prometheus)
+    | asyncbox.plugins.logger          | расширенное логирование (Loguru)
+    | asyncbox.plugins.tortoise        | БД (PostgreSQL)
+    | asyncbox.plugins.redis           | Redis
+    | asyncbox.plugins.sentry          | мониторинг ошибок (Sentry)
+    | asyncbox.plugins.prometheus      | сбор метрик (Prometheus)
 
     Каждый из плагинов может требовать наличия определённых настроек. В этом случае
     необходимо добавить соответствующую настройку в класс AppSettings

@@ -3,8 +3,8 @@ from typing import Optional
 import pytest
 from pydantic.error_wrappers import ValidationError
 
-from boxv2.plugin import BasePlugin, BasePluginSettings
-from boxv2.settings import BaseAppSettings
+from asyncbox.plugin import BasePlugin, BasePluginSettings
+from asyncbox.settings import BaseAppSettings
 
 
 class AppSettings(BaseAppSettings):

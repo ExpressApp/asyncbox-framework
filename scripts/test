@@ -4,8 +4,12 @@ if [ -f .env ]; then
   source .env
 fi
 
-echo using PostgreSQL at $TEST_POSTGRES_DSN
-echo using Redis at $TEST_REDIS_DSN
+echo testing asyncbox
 
-echo testing boxv2 itself
-POSTGRES_DSN=$TEST_POSTGRES_DSN REDIS_DSN=$TEST_REDIS_DSN pytest --cov-config=setup.cfg
+POSTGRES_DSN="${TEST_POSTGRES_DSN:-$POSTGRES_DSN}"
+REDIS_DSN="${TEST_REDIS_DSN:-$REDIS_DSN}"
+
+echo using PostgreSQL at $POSTGRES_DSN
+echo using Redis at $REDIS_DSN
+
+pytest --cov-config=setup.cfg ${@}

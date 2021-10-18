@@ -1,4 +1,4 @@
-from boxv2.utils.mako import TemplateFormatterLookup
+from asyncbox.utils.mako import TemplateFormatterLookup
 
 
 def test_mako():
