@@ -54,7 +54,6 @@ class SQLAlchemyPlugin(BasePlugin):
             },
         )
 
-
     @property
     def session(self) -> AsyncSession:
         """Return an SQLAlchemy session instance."""
