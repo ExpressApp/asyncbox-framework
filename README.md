@@ -1,4 +1,4 @@
-# Boxv2
+# Asyncbox Framework
 
 ## Установка 
 
@@ -60,7 +60,7 @@
     | Путь                             | Описание
     -----------------------------------|:-----------------------------------
     | asyncbox.plugins.logger          | расширенное логирование (Loguru)
-    | asyncbox.plugins.tortoise        | БД (PostgreSQL)
+    | asyncbox.plugins.sqlalchemy      | БД (PostgreSQL)
     | asyncbox.plugins.redis           | Redis
     | asyncbox.plugins.sentry          | мониторинг ошибок (Sentry)
     | asyncbox.plugins.prometheus      | сбор метрик (Prometheus)
