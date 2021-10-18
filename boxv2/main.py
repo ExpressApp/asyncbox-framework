@@ -3,10 +3,11 @@ import shutil
 import sys
 from pathlib import Path
 from tempfile import mkdtemp
-from typing import Optional
+from typing import Any, Optional
 
 import click
-from cookiecutter.exceptions import CookiecutterException, RepositoryNotFound
+from cookiecutter.exceptions import CookiecutterException  # type: ignore
+from cookiecutter.exceptions import RepositoryNotFound
 from cookiecutter.main import cookiecutter  # type: ignore
 from loguru import logger
 
@@ -37,7 +38,7 @@ def main(
         render_plugins_template(plg, extra_context)
 
 
-def render_plugins_template(plugin: str, extra_content: dict[str, str]) -> None:
+def render_plugins_template(plugin: str, extra_content: dict[str, Any]) -> None:
     """Render plugin's template (if exists) and add it to project."""
     temp_dir = Path(mkdtemp())
 
@@ -62,7 +63,7 @@ def render_plugins_template(plugin: str, extra_content: dict[str, str]) -> None:
     shutil.rmtree(temp_dir)
 
 
-def render_extra_template(template: str, extra_content: dict[str, str]) -> None:
+def render_extra_template(template: str, extra_content: dict[str, Any]) -> None:
     """Render template to overwrite existing default."""
     temp_dir = Path(mkdtemp())
     try:
@@ -81,10 +82,10 @@ def render_extra_template(template: str, extra_content: dict[str, str]) -> None:
 def _copy_inspect(path: str, names: list[str]) -> set[str]:
     ignore = set()
     for name in names:
-        if name != "__pycache__":
-            logger.debug(f"Copying file {path}/{name}...")
-        else:
+        if name == "__pycache__":
             ignore.add(name)
+        else:
+            logger.debug(f"Copying file {path}/{name}...")
     return ignore
 
 
@@ -96,8 +97,7 @@ def _get_logger_level(int_level: int) -> str:
         return "DEBUG"
     elif int_level == 1:
         return "INFO"
-    else:
-        return "WARNING"
+    return "WARNING"
 
 
 if __name__ == "__main__":

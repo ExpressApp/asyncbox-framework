@@ -10,4 +10,18 @@ collector = Collector()
 @collector.hidden(command="/_debug:commit_sha")
 async def commit_sha(message: Message, bot: Bot) -> None:
     """Show git commit SHA."""
-    await bot.answer_message(environ.get("COMMIT_SHA"), message)
+    await bot.answer_message(str(environ.get("COMMIT_SHA")), message)
+
+
+@collector.hidden(command="/_debug:plugins")
+async def plugins(message: Message, bot: Bot) -> None:
+    """Show git commit SHA."""
+    names_and_status = [
+        (plugin.get_name(), (await plugin.healthcheck()).json(indent=2))
+        for plugin in bot.state.plugins
+    ]
+    template = "**{name}**\n ```json\n{status}\n``` \n\n"
+    text = "\n\n".join(
+        [template.format(name=name, status=status) for name, status in names_and_status]
+    )
+    await bot.answer_message(text, message)

@@ -1,11 +1,12 @@
 """Functions to make bot application."""
 
+import itertools
 import os
-from typing import Any, Callable, List, Optional
+from typing import Callable, Optional
 
 from botx import Bot, Collector
 from fastapi import FastAPI
-import itertools
+
 from boxv2.endpoints import get_router
 from boxv2.plugin import get_plugin_by_path
 from boxv2.settings import BaseAppSettings
@@ -19,9 +20,11 @@ def get_application(settings: Optional[BaseAppSettings] = None) -> FastAPI:
 
     application = FastAPI(title=settings.NAME)
     plugin_classes = [get_plugin_by_path(plugin) for plugin in settings.PLUGINS]
-    dependencies = list(itertools.chain.from_iterable(
-        [plugin_class.dependencies for plugin_class in plugin_classes]
-    ))
+    dependencies = list(
+        itertools.chain.from_iterable(
+            [plugin_class.dependencies for plugin_class in plugin_classes]
+        )
+    )
 
     bot = Bot(  # type: ignore
         bot_accounts=settings.BOT_CREDENTIALS,
@@ -38,6 +41,7 @@ def get_application(settings: Optional[BaseAppSettings] = None) -> FastAPI:
     application.add_event_handler("shutdown", bot_shutdown(bot))
 
     for plugin in plugin_instances:
+        setattr(application.state, plugin.get_name(), plugin)
         application.add_event_handler("startup", plugin.on_startup)
         application.add_event_handler("shutdown", plugin.on_shutdown)
 

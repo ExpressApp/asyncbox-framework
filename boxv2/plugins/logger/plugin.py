@@ -2,12 +2,14 @@
 import json
 import logging
 import sys
+from copy import deepcopy
 from pprint import pformat
-from typing import TYPE_CHECKING, List, Any
+from typing import TYPE_CHECKING, Any
+
 from loguru import logger
 from loguru._defaults import LOGURU_FORMAT  # noqa: WPS436
+
 from boxv2.plugin import BasePlugin, BasePluginSettings
-from copy import deepcopy
 
 if TYPE_CHECKING:
     from loguru import Record  # noqa: WPS433  # pragma: no cover
