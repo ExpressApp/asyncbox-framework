@@ -61,7 +61,7 @@ class BasePlugin:
 
     @classmethod
     def get_name(cls) -> str:
-        """Get plugin's name."""
+        """Get plugin's lowercase name."""
         module = inspect.getmodule(cls)
         if module is not None:
             # asyncbox.plugins.sqlalchemy.plugin.SQLAlchemyPlugin
