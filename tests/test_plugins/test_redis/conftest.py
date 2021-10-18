@@ -4,7 +4,7 @@ import pytest
 
 from asyncbox.plugins.redis.plugin import RedisPlugin as Plugin, Settings
 
-REDIS_DSN = environ["TEST_REDIS_DSN"]
+REDIS_DSN = environ["REDIS_DSN"]
 
 
 class StateMock:

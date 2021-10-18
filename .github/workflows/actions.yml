@@ -32,7 +32,7 @@ jobs:
       - name: Setup
         uses: ExpressApp/github-actions-poetry@v0.1
         with:
-          python-version: "3.9"
+          python-version: "3.9.6"
           poetry-version: "1.1.6"
 
       - name: Run tests
