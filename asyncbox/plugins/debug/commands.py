@@ -20,7 +20,7 @@ async def plugins(message: Message, bot: Bot) -> None:
         (plugin.get_name(), (await plugin.healthcheck()).json(indent=2))
         for plugin in bot.state.plugins
     ]
-    template = "**{name}**\n ```json\n{status}\n``` \n\n"
+    template = "**{name}**\n ```json\n{status}\n```"
     text = "\n\n".join(
         [template.format(name=name, status=status) for name, status in names_and_status]
     )
