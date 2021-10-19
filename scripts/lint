@@ -8,5 +8,5 @@ mypy asyncbox
 flake8 asyncbox
 
 black --exclude asyncbox/template --check asyncbox --diff
-isort --recursive --check-only asyncbox
+isort --check-only asyncbox
 

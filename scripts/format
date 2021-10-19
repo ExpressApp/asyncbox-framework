@@ -2,7 +2,7 @@
 
 set -e
 
-isort --recursive  --force-single-line-imports asyncbox tests
+isort --force-single-line-imports asyncbox tests
 autoflake --recursive --remove-all-unused-imports --remove-unused-variables --in-place --exclude asyncbox/template/** asyncbox tests
 black --exclude asyncbox/template asyncbox tests
-isort --recursive asyncbox tests
+isort asyncbox tests

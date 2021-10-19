@@ -42,7 +42,7 @@ def test_required_setting_with_default(environment) -> None:
 
 
 def test_setting_replacement(environment) -> None:
-    """Plugin have a setting with default and application replace it's value. """
+    """Plugin have a setting with default and application replace it's value."""
     app_settings = AppSettings(REQ_STR="new value")
     plugin1 = Plugin1(app_settings, None, None)
     assert plugin1.settings.REQ_STR == "new value"
