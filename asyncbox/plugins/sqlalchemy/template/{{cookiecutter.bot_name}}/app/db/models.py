@@ -17,8 +17,10 @@ class Record(Base):
 
     __tablename__ = "record"
 
-    id: int = Column(Integer, primary_key=True, autoincrement=True)  # noqa: WPS125
-    record_data: str = Column(String)
+    id: Column[int] = Column(
+        Integer, primary_key=True, autoincrement=True
+    )  # noqa: WPS125
+    record_data: Column[str] = Column(String, nullable=False)
 
     def __repr__(self) -> str:
         """Show string representation of record."""
@@ -26,6 +28,7 @@ class Record(Base):
 
 
 def get_session() -> AsyncSession:
-    from app.main import app  # should not be imported before app initialization
+    #  should not be imported before app initialization
+    from app.main import app  # noqa: WPS433
 
     return app.state.sqlalchemy.session
