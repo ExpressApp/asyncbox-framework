@@ -1,9 +1,9 @@
 import pytest
 from fastapi import FastAPI
 
-from boxv2 import get_application
-from boxv2.settings import BaseAppSettings
-from boxv2.tests.fixtures import (
+from asyncbox import get_application
+from asyncbox.settings import BaseAppSettings
+from asyncbox.tests.fixtures import (
     bot,
     botx_client,
     builder,
@@ -27,7 +27,7 @@ __all__ = [
 
 
 class AppSettings(BaseAppSettings):
-    PLUGINS = ["boxv2.plugins.debug"]
+    PLUGINS = ["asyncbox.plugins.debug"]
 
 
 @pytest.fixture

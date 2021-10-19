@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 
-from boxv2.tests.fixtures import credentials, environment
+from asyncbox.tests.fixtures import credentials, environment
 
 load_dotenv(".env")
 

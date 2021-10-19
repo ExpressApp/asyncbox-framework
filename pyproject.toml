@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "boxv2"
+name = "asyncbox"
 version = "0.4.0"
 description = "Express bot framework"
 authors = ["vkarabanov <vkarabanov@ccsteam.ru>"]
@@ -42,4 +42,4 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-boxv2 = 'boxv2.main:main'
+asyncbox = 'asyncbox.main:main'

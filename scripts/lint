@@ -4,9 +4,9 @@ set -e
 set -x
 
 
-mypy boxv2
-flake8 boxv2
+mypy asyncbox
+flake8 asyncbox
 
-black --exclude boxv2/template --check boxv2 --diff
-isort --recursive --check-only boxv2
+black --exclude asyncbox/template --check asyncbox --diff
+isort --recursive --check-only asyncbox
 
