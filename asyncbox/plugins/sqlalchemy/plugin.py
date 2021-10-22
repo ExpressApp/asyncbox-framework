@@ -57,6 +57,6 @@ class SQLAlchemyPlugin(BasePlugin):
     @property
     def session(self) -> AsyncSession:
         """Return an SQLAlchemy session instance."""
-        if self._session is None:
+        if (not hasattr(self, "_session")) or (self._session is None):  # noqa: WPS421
             raise RuntimeError("Plugin not yet initialized!")
         return self._session

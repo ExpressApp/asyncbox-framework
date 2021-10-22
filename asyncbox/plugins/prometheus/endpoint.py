@@ -12,7 +12,7 @@ from starlette.responses import Response
 router = APIRouter()
 
 
-@router.get("/metrics")
+@router.get("/metrics", name="prometheus:metrics")
 async def metrics() -> Response:
     """Endpoint to get all bot's metrics."""
     if "prometheus_multiproc_dir" in os.environ:  # pragma: no cover

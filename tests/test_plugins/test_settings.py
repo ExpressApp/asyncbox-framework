@@ -46,3 +46,9 @@ def test_setting_replacement(environment) -> None:
     app_settings = AppSettings(REQ_STR="new value")
     plugin1 = Plugin1(app_settings, None, None)
     assert plugin1.settings.REQ_STR == "new value"
+
+
+def test_empty_credentials() -> None:
+    "Error on empty BOT_CREDENTIALS."
+    with pytest.raises(ValueError):
+        BaseAppSettings(BOT_CREDENTIALS="")
