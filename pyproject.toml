@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "asyncbox"
-version = "0.4.1"
+version = "0.4.2"
 description = "Express bot framework"
 authors = ["vkarabanov <vkarabanov@ccsteam.ru>"]
 

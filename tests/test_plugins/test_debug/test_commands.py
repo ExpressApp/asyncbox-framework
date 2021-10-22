@@ -17,3 +17,24 @@ async def test_debug_command(
 
     body = botx_client.notifications[0].result.body
     assert body == "test_commit_sha"
+
+
+@pytest.mark.asyncio
+async def test_plugins_command(
+    builder: MessageBuilder,
+    bot: Bot,
+    botx_client: BotXClient,
+):
+    builder.body = "/_debug:plugins"
+    await botx_client.send_command(builder.message)
+
+    body = botx_client.notifications[0].result.body
+    assert body == (
+        "**debug**\n"
+        " ```json\n"
+        "{\n"
+        '  "healthy": null,\n'
+        '  "information": {}\n'
+        "}\n"
+        "```"
+    )
