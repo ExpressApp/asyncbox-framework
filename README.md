@@ -24,14 +24,14 @@
     pip install asyncbox
     ```
 
-3. Создание проекта из шаблона
+2.  Создание проекта из шаблона
    
     ```bash
     asyncbox -v -t http://path/to/template -p plugin1 -p plugin2 bot_project_name
     cd bot_project_name
     ```
    
-4. Установка зависимостей
+3. Установка зависимостей
 
     ```bash
     poetry install
@@ -43,7 +43,7 @@
     asyncbox = { git = "https://github.com/ExpressApp/asyncbox-framework.git", branch = "master"}
     ```    
 
-5. Обновление
+4. Обновление
    
     Для обновления библиотеки в проекте:
     ```bash
