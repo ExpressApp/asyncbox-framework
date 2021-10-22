@@ -12,7 +12,6 @@ async def test_healthcheck(sqlalchemy_plugin):
 async def test_healthcheck_failed(sqlalchemy_plugin_failed):
     health_status = await sqlalchemy_plugin_failed.healthcheck()
     assert health_status.healthy is False
-    assert health_status.information["error"] == "[Errno -2] Name or service not known"
 
 
 @pytest.mark.asyncio
