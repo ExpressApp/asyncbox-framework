@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 from tempfile import mkdtemp
 from typing import Any, Optional
-
+from importlib.metadata import distribution
 import click
 from cookiecutter.exceptions import CookiecutterException  # type: ignore
 from cookiecutter.exceptions import RepositoryNotFound
@@ -22,13 +22,24 @@ from asyncbox.plugin import get_plugin_by_path
 def main(
     plugin: list[str], template: Optional[str], bot_name: str, verbose: int
 ) -> None:
+    make_project(plugin=plugin, template=template, bot_name=bot_name, verbose=verbose)
+
+
+def make_project(
+    plugin: list[str], template: Optional[str], bot_name: str, verbose: int
+) -> None:
     """Create a bot project."""
     if Path(bot_name).exists():
         raise click.UsageError(f"Directory `{bot_name}` already exists.")
     logger.remove()
     logger.add(sys.stderr, level=_get_logger_level(verbose))
 
-    extra_context = {"bot_name": bot_name, "plugins": {"plugins_list": list(plugin)}}
+    asyncbox_version = distribution('asyncbox').version
+    extra_context = {
+        "bot_name": bot_name,
+        "asyncbox_version": asyncbox_version,
+        "plugins": {"plugins_list": list(plugin)},
+    }
 
     template_path = Path(__file__).parent / "template"
     cookiecutter(str(template_path), extra_context=extra_context, no_input=True)

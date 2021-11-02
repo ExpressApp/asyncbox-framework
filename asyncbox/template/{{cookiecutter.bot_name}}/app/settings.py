@@ -10,9 +10,9 @@ class AppSettings(BaseAppSettings):
 
     NAME = "{{cookiecutter.bot_name}}"
     PLUGINS: List[str] = [
-        {% for plugin in cookiecutter.plugins.plugins_list %}
+        {%- for plugin in cookiecutter.plugins.plugins_list %}
         "asyncbox.plugins.{{ plugin }}",
-        {% endfor %}
+        {%- endfor %}
     ]
     COLLECTORS: List[str] = [
         "app.commands:collector",
