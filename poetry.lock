@@ -99,7 +99,7 @@ name = "asyncpg"
 version = "0.24.0"
 description = "An asyncio PostgreSQL driver"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6.0"
 
 [package.extras]
@@ -1389,12 +1389,12 @@ logger = ["loguru"]
 prometheus = ["prometheus-client"]
 redis = ["aioredis"]
 sentry = ["sentry-sdk"]
-sqlalchemy = ["SQLAlchemy", "alembic", "psycopg2-binary", "databases"]
+sqlalchemy = ["SQLAlchemy", "alembic", "psycopg2-binary", "asyncpg", "databases"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.9"
-content-hash = "de86821f0783803b3b95e4f2fc5749e96e74bd720a66413d6080f768bf3e92fa"
+content-hash = "1e1c97939882384001a067e35c13066af70e529e085d2a4edd11bae18fce54c7"
 
 [metadata.files]
 aioredis = [
