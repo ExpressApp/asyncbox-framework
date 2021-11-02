@@ -1,6 +1,6 @@
 """Postgresql database plugin."""
 
-from typing import Any, Optional
+from typing import Any, Optional, Callable
 
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
@@ -20,7 +20,7 @@ class SQLAlchemyPlugin(BasePlugin):
     """SQLAlchemy ORM plugin."""
 
     settings_class = Settings
-    _session: Optional[AsyncSession]
+    make_session: Optional[Callable]
     engine: Optional[AsyncEngine]
 
     async def on_startup(self, *args: Any, **kwargs: Any) -> None:
@@ -29,21 +29,16 @@ class SQLAlchemyPlugin(BasePlugin):
             make_url_async(self.settings.POSTGRES_DSN), echo=self.settings.SQL_DEBUG
         )
 
-        make_session = sessionmaker(
+        self.make_session = sessionmaker(
             self.engine, expire_on_commit=False, class_=AsyncSession
         )
-        self._session = make_session()
-
-    async def on_shutdown(self, *args: Any, **kwargs: Any) -> None:
-        """Shutdown hook."""
-        if self.session is not None:
-            await self.session.close()
 
     async def healthcheck(self) -> HealtCheckData:
         """Healthcheck function."""
         try:
-            async with self.session.begin():
-                rows = await self.session.execute("select version()")
+            session = self.make_session()
+            async with session.begin():
+                rows = await session.execute("select version()")  # type: ignore
         except Exception as exc:
             return HealtCheckData(healthy=False, information={"error": str(exc)})
         return HealtCheckData(
@@ -53,10 +48,3 @@ class SQLAlchemyPlugin(BasePlugin):
                 "dsn": self.settings.POSTGRES_DSN,
             },
         )
-
-    @property
-    def session(self) -> AsyncSession:
-        """Return an SQLAlchemy session instance."""
-        if self._session is None:
-            raise RuntimeError("Plugin not yet initialized!")
-        return self._session
