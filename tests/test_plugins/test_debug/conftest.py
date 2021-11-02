@@ -27,7 +27,7 @@ __all__ = [
 
 
 class AppSettings(BaseAppSettings):
-    PLUGINS = ["asyncbox.plugins.debug"]
+    PLUGINS: list[str] = ["asyncbox.plugins.debug"]
 
 
 @pytest.fixture

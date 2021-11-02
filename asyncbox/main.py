@@ -1,10 +1,11 @@
 """Utility to create a project."""
 import shutil
 import sys
+from importlib.metadata import distribution
 from pathlib import Path
 from tempfile import mkdtemp
 from typing import Any, Optional
-from importlib.metadata import distribution
+
 import click
 from cookiecutter.exceptions import CookiecutterException  # type: ignore
 from cookiecutter.exceptions import RepositoryNotFound
@@ -34,7 +35,7 @@ def make_project(
     logger.remove()
     logger.add(sys.stderr, level=_get_logger_level(verbose))
 
-    asyncbox_version = distribution('asyncbox').version
+    asyncbox_version = distribution("asyncbox").version
     extra_context = {
         "bot_name": bot_name,
         "asyncbox_version": asyncbox_version,

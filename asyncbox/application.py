@@ -5,14 +5,15 @@ import os
 from typing import Callable, Optional
 
 from botx import Bot, Collector
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
 
-from asyncbox.endpoints import get_router
 from asyncbox.plugin import get_plugin_by_path
 from asyncbox.settings import BaseAppSettings
 from asyncbox.utils.import_utils import import_object
+from asyncbox.utils.singleton_wrapper import singleton_wrapper
 
 
+@singleton_wrapper("application")
 def get_application(settings: Optional[BaseAppSettings] = None) -> FastAPI:
     """Create configured server application instance."""
     if settings is None:
@@ -49,7 +50,7 @@ def get_application(settings: Optional[BaseAppSettings] = None) -> FastAPI:
     for collector in collectors:
         bot.include_collector(collector)
 
-    router = get_router(bot)
+    router = get_default_router(settings)
     application.include_router(router)
 
     return application
@@ -83,3 +84,7 @@ def get_app_settings() -> BaseAppSettings:
 def get_collectors(settings: BaseAppSettings) -> list[Collector]:
     """Return list of registered Collectors."""
     return [import_object(collector_path) for collector_path in settings.COLLECTORS]
+
+
+def get_default_router(settings: BaseAppSettings) -> APIRouter:
+    return import_object(settings.DEFAULT_ROUTER)

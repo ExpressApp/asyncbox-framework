@@ -17,14 +17,12 @@ class Record(Base):
 
     __tablename__ = "record"
 
-    id: Column[int] = Column(
-        Integer, primary_key=True, autoincrement=True
-    )  # noqa: WPS125
-    record_data: Column[str] = Column(String, nullable=False)
+    id = Column(Integer, primary_key=True, autoincrement=True)  # noqa: WPS125
+    record_data = Column(String, nullable=False)
 
     def __repr__(self) -> str:
         """Show string representation of record."""
-        return self.record_data
+        return f"<{self.id}> {self.record_data}"
 
 
 def get_session() -> AsyncSession:

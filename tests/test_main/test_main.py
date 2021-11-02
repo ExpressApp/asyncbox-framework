@@ -1,6 +1,8 @@
-import pytest
 from itertools import combinations
 from shutil import rmtree
+
+import pytest
+
 from asyncbox.main import make_project
 
 plugins = ["debug", "logger", "prometheus", "redis", "sentry", "sqlalchemy"]
