@@ -2,7 +2,7 @@
 
 import itertools
 import os
-from typing import Callable, Optional
+from typing import Callable
 
 from botx import Bot, Collector
 from fastapi import APIRouter, FastAPI
@@ -14,10 +14,18 @@ from asyncbox.utils.singleton_wrapper import singleton_wrapper
 
 
 @singleton_wrapper("application")
-def get_application(settings: Optional[BaseAppSettings] = None) -> FastAPI:
+def get_application() -> FastAPI:
+    """Get or create an application instance."""
+    return make_application(get_app_settings())
+
+
+def get_bot() -> Bot:
+    """Get an instance of bot."""
+    return get_application().state.bot
+
+
+def make_application(settings: BaseAppSettings) -> FastAPI:
     """Create configured server application instance."""
-    if settings is None:
-        settings = get_app_settings()
 
     application = FastAPI(title=settings.NAME)
     plugin_classes = [get_plugin_by_path(plugin) for plugin in settings.PLUGINS]

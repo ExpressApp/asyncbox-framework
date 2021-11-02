@@ -1,7 +1,7 @@
 import pytest
 from fastapi import FastAPI
 
-from asyncbox import get_application
+from asyncbox.application import make_application
 from asyncbox.settings import BaseAppSettings
 from asyncbox.tests.fixtures import (
     bot,
@@ -32,5 +32,5 @@ class AppSettings(BaseAppSettings):
 
 @pytest.fixture
 def app() -> FastAPI:
-    app = get_application(AppSettings())
+    app = make_application(AppSettings())
     return app

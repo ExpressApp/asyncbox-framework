@@ -4,6 +4,8 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.declarative import declarative_base
 
+from asyncbox import get_application
+
 # All models in project must be inherited from this class
 Base = declarative_base()
 
@@ -25,8 +27,6 @@ class Record(Base):
         return f"<{self.id}> {self.record_data}"
 
 
-def get_session() -> AsyncSession:
-    #  should not be imported before app initialization
-    from app.main import app  # noqa: WPS433
-
-    return app.state.sqlalchemy.session
+def make_session() -> AsyncSession:
+    """Make a new SQLAlchemy asynchronous session."""
+    return get_application().state.sqlalchemy.make_session()

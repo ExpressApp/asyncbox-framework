@@ -14,7 +14,7 @@ from botx.testing.testing_client.client import TestClient
 from fastapi import FastAPI
 from pytest_cov.plugin import StoreReport
 
-from asyncbox import get_application
+from asyncbox.application import get_app_settings, make_application
 
 
 @pytest.fixture(scope="session")
@@ -62,7 +62,7 @@ def pytest_addoption(parser):
 
 @pytest.fixture
 def app(migrations, environment) -> FastAPI:
-    return get_application()
+    return make_application(get_app_settings())
 
 
 @pytest.fixture(autouse=True)

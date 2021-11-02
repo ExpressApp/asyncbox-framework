@@ -5,7 +5,7 @@ from botx.models.status import StatusRecipient
 from fastapi import APIRouter, Depends
 from starlette.status import HTTP_202_ACCEPTED
 
-from asyncbox.dependencies.bot import get_bot
+from asyncbox import get_bot
 from asyncbox.dependencies.status_recipient import get_status_recipient
 
 router = APIRouter()

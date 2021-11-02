@@ -1,6 +1,6 @@
 """Postgresql database plugin."""
 
-from typing import Any, Optional, Callable
+from typing import Any, Callable, Optional
 
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
@@ -20,7 +20,6 @@ class SQLAlchemyPlugin(BasePlugin):
     """SQLAlchemy ORM plugin."""
 
     settings_class = Settings
-    make_session: Optional[Callable]
     engine: Optional[AsyncEngine]
 
     async def on_startup(self, *args: Any, **kwargs: Any) -> None:
@@ -28,14 +27,20 @@ class SQLAlchemyPlugin(BasePlugin):
         self.engine = create_async_engine(
             make_url_async(self.settings.POSTGRES_DSN), echo=self.settings.SQL_DEBUG
         )
-
-        self.make_session = sessionmaker(
+        self._make_session = sessionmaker(
             self.engine, expire_on_commit=False, class_=AsyncSession
         )
 
+    @property
+    def make_session(self) -> Callable:
+        """Return an SQLAlchemy session instance."""
+        if getattr(self, "_make_session", None) is None:
+            raise RuntimeError("Plugin not yet initialized!")
+        return self._make_session
+
     async def healthcheck(self) -> HealtCheckData:
         """Healthcheck function."""
-        try:
+        try:  # noqa: WPS229
             session = self.make_session()
             async with session.begin():
                 rows = await session.execute("select version()")  # type: ignore
