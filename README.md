@@ -1,9 +1,13 @@
 # Asyncbox Framework
 
+[![codecov](https://codecov.io/gh/ExpressApp/asyncbox-framework/branch/main/graph/badge.svg?token=JNXGP4IVZ2)](https://codecov.io/gh/ExpressApp/asyncbox-framework)
+
+
 ## Установка 
 
 1. Установка
-   
+
+    a) из исходников   
     Склонировать репозиторий с исходниками
     ```bash
     git clone https://github.com/ExpressApp/asyncbox-framework.git
@@ -14,8 +18,13 @@
     poetry build
     pip install --user dist/asyncbox-0.4.0-py3-none-any.whl
     ```
+   
+    b) из pypi
+    ```bash
+    pip install asyncbox
+    ```
 
-2. Создание проекта из шаблона
+2.  Создание проекта из шаблона
    
     ```bash
     asyncbox -v -t http://path/to/template -p plugin1 -p plugin2 bot_project_name
@@ -31,7 +40,7 @@
     указана в шаблоне файла pyproject.toml. При необходимости вы можете указать нужную
     версию или ветку репозитория следующим образом: 
     ```
-    asyncbox = { git = "https://github.com/ExpressApp/asyncbox.git", branch = "master"}
+    asyncbox = { git = "https://github.com/ExpressApp/asyncbox-framework.git", branch = "master"}
     ```    
 
 4. Обновление
@@ -68,6 +77,6 @@
     Каждый из плагинов может требовать наличия определённых настроек. В этом случае
     необходимо добавить соответствующую настройку в класс AppSettings
    
-    Список коллекторов хэндлеров комманд задаётся в настроке `COLLECTORS` в таком же
+    Список коллекторов хэндлеров комманд задаётся в настройке `COLLECTORS` в таком же
     формате как и список плагинов.
    

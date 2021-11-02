@@ -83,10 +83,9 @@ class RedisRepo:  # noqa: WPS214
         return self._async2sync(self.delete, item)
 
     def _key(self, arg: Hashable) -> str:
+        prefix = ""
         if self.prefix is not None:
             prefix = self.prefix + self.delimiter
-        else:
-            prefix = ""
 
         hash_bytes = str(hash(arg)).encode()
         return prefix + hashlib.sha224(hash_bytes).hexdigest()

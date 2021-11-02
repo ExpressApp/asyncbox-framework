@@ -38,7 +38,7 @@ class RedisPlugin(BasePlugin):
         try:
             information = await self.redis_repo.redis.info()
         except Exception as exc:
-            return HealtCheckData(healthy=False, info={"error": str(exc)})
+            return HealtCheckData(healthy=False, information={"error": str(exc)})
         return HealtCheckData(
             healthy=True,
             information={
