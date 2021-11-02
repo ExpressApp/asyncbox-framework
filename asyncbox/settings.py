@@ -25,7 +25,6 @@ class BaseAppSettings(BaseSettings):
 
     # PostgreSQL settings
     POSTGRES_DSN: Optional[PostgresDsn]
-    EXTRA_MODELS: Optional[dict[str, list[str]]] = {}  # noqa: WPS234
     SQL_DEBUG: bool = False
 
     # Redis settings
