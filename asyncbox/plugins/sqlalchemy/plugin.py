@@ -40,9 +40,8 @@ class SQLAlchemyPlugin(BasePlugin):
 
     async def healthcheck(self) -> HealtCheckData:
         """Healthcheck function."""
-        try:  # noqa: WPS229
-            session = self.make_session()
-            async with session.begin():
+        try:
+            async with self.make_session()as session, session.begin():
                 rows = await session.execute("select version()")  # type: ignore
         except Exception as exc:
             return HealtCheckData(healthy=False, information={"error": str(exc)})
