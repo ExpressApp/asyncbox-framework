@@ -17,4 +17,4 @@ async def test_healthcheck_failed(sqlalchemy_plugin_failed):
 @pytest.mark.asyncio
 async def test_uninitialized(sqlalchemy_plugin_uninitialized):
     with pytest.raises(RuntimeError):
-        await sqlalchemy_plugin_uninitialized.session
+        sqlalchemy_plugin_uninitialized.make_session()
