@@ -4,6 +4,8 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.declarative import declarative_base
 
+from asyncbox import get_application
+
 # All models in project must be inherited from this class
 Base = declarative_base()
 
@@ -17,18 +19,14 @@ class Record(Base):
 
     __tablename__ = "record"
 
-    id: Column[int] = Column(
-        Integer, primary_key=True, autoincrement=True
-    )  # noqa: WPS125
-    record_data: Column[str] = Column(String, nullable=False)
+    id = Column(Integer, primary_key=True, autoincrement=True)  # noqa: WPS125
+    record_data = Column(String, nullable=False)
 
     def __repr__(self) -> str:
         """Show string representation of record."""
-        return self.record_data
+        return f"<{self.id}> {self.record_data}"
 
 
-def get_session() -> AsyncSession:
-    #  should not be imported before app initialization
-    from app.main import app  # noqa: WPS433
-
-    return app.state.sqlalchemy.session
+def make_session() -> AsyncSession:
+    """Make a new SQLAlchemy asynchronous session."""
+    return get_application().state.sqlalchemy.make_session()

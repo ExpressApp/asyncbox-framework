@@ -1,6 +1,6 @@
 """Default settings for bot application."""
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from botx import BotXCredentials
 from pydantic import BaseSettings, PostgresDsn, RedisDsn, validator
@@ -15,16 +15,16 @@ class BaseAppSettings(BaseSettings):
 
     NAME = "asyncbox"
 
-    PLUGINS = ["asyncbox.plugins.tortoise"]
-    COLLECTORS: List[str] = []
+    PLUGINS: list[str] = []
+    COLLECTORS: list[str] = []
+    DEFAULT_ROUTER = "asyncbox.endpoints:router"
 
     # base kwargs
     DEBUG: bool = False
-    BOT_CREDENTIALS: List[BotXCredentials]
+    BOT_CREDENTIALS: list[BotXCredentials]
 
     # PostgreSQL settings
     POSTGRES_DSN: Optional[PostgresDsn]
-    EXTRA_MODELS: Optional[Dict[str, List[str]]] = {}  # noqa: WPS234
     SQL_DEBUG: bool = False
 
     # Redis settings
@@ -37,7 +37,7 @@ class BaseAppSettings(BaseSettings):
 
     @validator("BOT_CREDENTIALS", pre=True)
     @classmethod
-    def parse_bot_credentials(cls, raw_credentials: Any) -> List[BotXCredentials]:
+    def parse_bot_credentials(cls, raw_credentials: Any) -> list[BotXCredentials]:
         """Parse bot credentials separated by comma.
 
         Each entry must be separated by "@".
