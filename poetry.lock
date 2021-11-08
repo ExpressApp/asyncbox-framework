@@ -1385,7 +1385,6 @@ python-versions = ">=3.5"
 dev = ["pytest (>=4.6.2)", "black (>=19.3b0)"]
 
 [extras]
-logger = ["loguru"]
 prometheus = ["prometheus-client"]
 redis = ["aioredis"]
 sentry = ["sentry-sdk"]
@@ -1394,7 +1393,7 @@ sqlalchemy = ["SQLAlchemy", "alembic", "psycopg2-binary", "asyncpg", "databases"
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.9"
-content-hash = "1e1c97939882384001a067e35c13066af70e529e085d2a4edd11bae18fce54c7"
+content-hash = "e376c416d390bb8a54b46d0ef1655fe938f08b1cc0c4dac3018ba52254dea448"
 
 [metadata.files]
 aioredis = [
